@@ -15,9 +15,12 @@ git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-jackett-trans
 cd docker-compose-radarr-sonarr-jackett-transmission
 ```
 
-Then it is time to start the containers (--detach is for starting in the background):
+
+Then it is time to start the containers
+* --compatibility is to convert deploy keys in v3 files to their non-Swarm equivalent
+* --detach is for starting in the background)
 ```
-docker-compose up --detach
+docker-compose --compatibility up --detach
 ```
 
 It should start pulling the containers like so:
@@ -42,6 +45,7 @@ Creating radarr               ... done
 Creating sonarr               ... done
 Creating transmission-openvpn ... done
 Creating jackett              ... done
+Creating samba                ... done
 ```
 
 The services are available on the localhost addresses:
@@ -51,6 +55,9 @@ The services are available on the localhost addresses:
 * Jackett: http://127.0.0.1:9117/
 
 When you are accessing the server from outside the server (over SSH for example) replace 127.0.0.1 with the IP of your server.
+
+The SMB share is available on the same ip address without credentials. When credentials are needed look at these options:
+https://github.com/dperson/samba#configuration
 
 ## Some usefull links and tips:
 
