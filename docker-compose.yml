@@ -65,3 +65,17 @@ services:
     volumes:
       - /media/jackett:/config
       - /media/downloads/watch:/downloads  # transmission watch directory
+
+  # https://github.com/ehough/docker-nfs-server
+  nfs:
+    image: wlad/nfs:2.2.1
+    container_name: nfs
+    restart: always
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "2049:2049"
+    environment:
+      - NFS_EXPORT_0='/media *(rw,sync,no_subtree_check)'
+    volumes:
+      - /media:/media
