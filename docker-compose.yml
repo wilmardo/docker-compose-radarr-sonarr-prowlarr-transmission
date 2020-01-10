@@ -66,16 +66,24 @@ services:
       - /media/jackett:/config
       - /media/downloads/watch:/downloads  # transmission watch directory
 
-  # https://github.com/ehough/docker-nfs-server
-  nfs:
-    image: wlad/nfs:2.2.1
-    container_name: nfs
+  # https://github.com/dperson/samba
+  samba:
+    # NOTE: change tag to aarch64 instead of latest when using Raspberry Pi
+    image: dperson/samba:latest  # no versioning of images
+    container_name: samba
     restart: always
-    cap_add:
-      - SYS_ADMIN
+    # NOTE: see https://github.com/dperson/samba#troubleshooting
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     ports:
-      - "2049:2049"
+      - "139:139"
+      - "445:445"
     environment:
-      - NFS_EXPORT_0='/media *(rw,sync,no_subtree_check)'
+      - USERID=1000
+      - GROUPID=1000
+      - SHARE=Media;/media
+      - TZ=Europe/Amsterdam
     volumes:
       - /media:/media
