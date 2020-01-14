@@ -3,7 +3,8 @@ version: "3.7"
 services:
   # https://github.com/haugene/docker-transmission-openvpn
   transmission:
-    image: haugene/transmission-openvpn:2.7
+    # NOTE: change tag to dev-arm64 instead of dev when using Raspberry Pi
+    image: haugene/transmission-openvpn:dev
     container_name: transmission-openvpn
     restart: always
     ports:
