@@ -15,6 +15,7 @@ git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-jackett-trans
 cd docker-compose-radarr-sonarr-jackett-transmission
 ```
 
+When running on a Rapsberry Pi please check the `NOTE:` in the docker-compose before running `docker-compose up`
 
 Then it is time to start the containers
 * --compatibility is to convert deploy keys in v3 files to their non-Swarm equivalent
