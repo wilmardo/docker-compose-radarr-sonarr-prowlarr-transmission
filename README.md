@@ -90,6 +90,7 @@ https://github.com/dperson/samba#configuration
   For example: `docker compose logs radarr`
 * Container can connect between eachother on their name in the compose file, for example `http://prowlarr:9696` as Prowlarr Server and `http://radarr:7878` as Radarr server.
 * Add Sonarr and Radarr as clients in Prowlarr to automatically setup indexers in them (settings>apps)
+* Update the containers to their latest version with `docker compose pull` and `docker compose up -d`
 
 ## Final note
 
