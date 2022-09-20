@@ -4,8 +4,30 @@ Quick setup for Radarr, Sonarr, Jackett and Transmission
 ## Requirements:
 
 * Docker: https://docs.docker.com/install/linux/docker-ce/ubuntu/
-* Docker-compose: https://docs.docker.com/compose/install/
-* A HDD or USB mounted at /media, of the mountpath is different update the patch in docker-compose.yml
+* Docker-compose: https://docs.docker.com/compose/install/linux/#install-using-the-repository
+* A HDD or USB mounted at /media, of the mountpath is different update the path in docker-compose.yml under `volumes:`
+  https://raspberrypi-guide.github.io/filesharing/mounting-external-drive
+
+TLDR: run these on a new install to install Docker:
+```
+sudo apt-get update
+
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
 
 ## Get started
 
@@ -15,13 +37,14 @@ git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-jackett-trans
 cd docker-compose-radarr-sonarr-jackett-transmission
 ```
 
-When running on a Rapsberry Pi please check the `NOTE:` in the docker-compose before running `docker-compose up`
+In the `docker-compose` you must setup the `OPENVPN_` variables under the `environment:` key.
+See here for more information: https://haugene.github.io/docker-transmission-openvpn/config-options/
 
-Then it is time to start the containers
+When completed it is time to start the containers
 * --compatibility is to convert deploy keys in v3 files to their non-Swarm equivalent
 * --detach is for starting in the background)
 ```
-docker-compose --compatibility up --detach
+docker compose --compatibility up --detach
 ```
 
 It should start pulling the containers like so:
@@ -45,7 +68,7 @@ After this command completes like so:
 Creating radarr               ... done
 Creating sonarr               ... done
 Creating transmission-openvpn ... done
-Creating jackett              ... done
+Creating prowlarr             ... done
 Creating samba                ... done
 ```
 
@@ -53,19 +76,20 @@ The services are available on the localhost addresses:
 
 * Radarr: http://127.0.0.1:7878/
 * Sonarr: http://127.0.0.1:8989/
-* Jackett: http://127.0.0.1:9117/
+* Prowlarr: http://127.0.0.1:9696/
 
 When you are accessing the server from outside the server (over SSH for example) replace 127.0.0.1 with the IP of your server.
 
 The SMB share is available on the same ip address without credentials. When credentials are needed look at these options:
 https://github.com/dperson/samba#configuration
 
-## Some usefull links and tips:
+## Some useful links and tips:
 
-* Check the running containers with `docker ps`
-* Check logs of the containers with `docker logs <container id>` container id is visible in the docker ps output.
-  The name of the container can be used to `docker logs radarr`
-* Setup all indexers at once in Jackett: https://gist.github.com/wilmardo/cffb41d694edd069c28d585d2e20e0fc
+* Check the running containers with `docker compose ps`
+* Check logs of the containers with `docker compose logs <container name>` container name is visible in the docker ps output.
+  For example: `docker compose logs radarr`
+* Container can connect between eachother on their name in the compose file, for example `http://prowlarr:9696` as Prowlarr Server and `http://radarr:7878` as Radarr server.
+* Add Sonarr and Radarr as clients in Prowlarr to automatically setup indexers in them (settings>apps)
 
 ## Final note
 

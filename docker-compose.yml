@@ -3,26 +3,27 @@ version: "3.7"
 services:
   # https://github.com/haugene/docker-transmission-openvpn
   transmission:
-    # NOTE: change tag to dev-arm64 instead of dev when using Raspberry Pi
-    image: haugene/transmission-openvpn:dev
+    image: haugene/transmission-openvpn:latest
     container_name: transmission-openvpn
     restart: always
     ports:
       - "9091:9091"
+    # https://haugene.github.io/docker-transmission-openvpn/config-options/
     environment:
-      - CREATE_TUN_DEVICE=true
       - OPENVPN_PROVIDER=<FILL>
       - OPENVPN_CONFIG=<FILL>
       - OPENVPN_USERNAME=<FILL>
       - OPENVPN_PASSWORD=<FILL>
       - WEBPROXY_ENABLED=false
+      - LOCAL_NETWORK=192.168.0.0/24
+      - TRANSMISSION_WEB_UI=flood-for-transmission
     volumes:
       - /media/downloads:/data
       - /etc/localtime:/etc/localtime:ro
 
   # https://github.com/linuxserver/docker-radarr
   radarr:
-    image: linuxserver/radarr:3.0.0.2493-ls1
+    image: linuxserver/radarr:latest
     container_name: radarr
     restart: always
     ports:
@@ -38,7 +39,7 @@ services:
 
   # https://github.com/linuxserver/docker-sonarr
   sonarr:
-    image: linuxserver/sonarr:3.0.3.687-ls166
+    image: linuxserver/sonarr:latest
     container_name: sonarr
     restart: always
     ports:
@@ -54,23 +55,22 @@ services:
 
   # https://github.com/linuxserver/docker-jackett
   jackett:
-    image: linuxserver/jackett:v0.12.1525-ls38
-    container_name: jackett
+    image: linuxserver/prowlarr:latest
+    container_name: prowlarr
     restart: always
     ports:
-      - "9117:9117"
+      - "9696:9696"
     environment:
       - PGID=1000
       - PUID=1000
       - TZ=Europe/Amsterdam
     volumes:
-      - /media/jackett:/config
+      - /media/prowlarr:/config
       - /media/downloads/watch:/downloads  # transmission watch directory
 
   # https://github.com/dperson/samba
   samba:
-    # NOTE: change tag to aarch64 instead of latest when using Raspberry Pi
-    image: dperson/samba:latest  # no versioning of images
+    image: dperson/samba:latest
     container_name: samba
     restart: always
     # NOTE: see https://github.com/dperson/samba#troubleshooting
