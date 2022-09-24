@@ -4,7 +4,7 @@ Quick setup for Radarr, Sonarr, Jackett and Transmission
 ## Requirements:
 
 * Docker: https://docs.docker.com/install/linux/docker-ce/ubuntu/
-* Docker-compose: https://docs.docker.com/compose/install/linux/#install-using-the-repository
+* Docker compose: https://docs.docker.com/compose/install/linux/#install-using-the-repository
 * A HDD or USB mounted at /media, of the mountpath is different update the path in docker-compose.yml under `volumes:`
   https://raspberrypi-guide.github.io/filesharing/mounting-external-drive
 
@@ -38,7 +38,7 @@ git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-jackett-trans
 cd docker-compose-radarr-sonarr-jackett-transmission
 ```
 
-In the `docker-compose` you must setup the `OPENVPN_` variables under the `environment:` key.
+In the `docker-compose.yml` you must setup the `OPENVPN_` variables under the `environment:` key.
 See here for more information: https://haugene.github.io/docker-transmission-openvpn/config-options/
 
 When completed it is time to start the containers
