@@ -84,6 +84,9 @@ When you are accessing the server from outside the server (over SSH for example)
 The SMB share is available on the same ip address without credentials. When credentials are needed look at these options:
 https://github.com/dperson/samba#configuration
 
+If you didn't setup credentials it is as easy as entering `\\<ip>\Media` in the Windows explorer bar. See this link for some more information:
+https://www.techrepublic.com/article/how-to-connect-to-linux-samba-shares-from-windows-10/
+
 ## Some useful links and tips:
 
 * Check the running containers with `docker compose ps`
