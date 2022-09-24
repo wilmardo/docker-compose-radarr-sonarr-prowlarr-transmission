@@ -3,12 +3,12 @@ Quick setup for Radarr, Sonarr, Jackett and Transmission
 
 ## Requirements:
 
-* Docker: https://docs.docker.com/install/linux/docker-ce/ubuntu/
+* Docker: https://docs.docker.com/engine/install/
 * Docker compose: https://docs.docker.com/compose/install/linux/#install-using-the-repository
 * A HDD or USB mounted at /media, of the mountpath is different update the path in docker-compose.yml under `volumes:`
   https://raspberrypi-guide.github.io/filesharing/mounting-external-drive
 
-TLDR: run these on a new install to install Docker:
+TLDR: run these on a new install of **Ubuntu** to install Docker and add your user to the docker group:
 ```
 sudo apt-get update
 
@@ -28,9 +28,14 @@ echo \
 
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+sudo usermod -aG docker $USER
 ```
 
 ## Get started
+
+If you didn't use the above TLDR, make sure you did the [linux-postinstall](https://docs.docker.com/engine/install/linux-postinstall/) steps.
+Make sure after the above usermod you logged in and out once (type `exit` on the terminal).
 
 Get a copy of the docker-compose.yml, could be copy pasting or cloning the repository with git:
 ```
