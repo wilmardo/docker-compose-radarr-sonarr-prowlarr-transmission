@@ -55,7 +55,7 @@ services:
 
   # https://github.com/linuxserver/docker-prowlarr
   prowlarr:
-    image: linuxserver/prowlarr:latest
+    image: linuxserver/prowlarr:develop
     container_name: prowlarr
     restart: always
     ports:
