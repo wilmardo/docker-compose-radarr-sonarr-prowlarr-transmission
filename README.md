@@ -1,5 +1,5 @@
-# docker-compose-radarr-sonarr-jackett-transmission
-Quick setup for Radarr, Sonarr, Jackett and Transmission
+# docker-compose-radarr-sonarr-prowlarr-transmission
+Quick setup for Radarr, Sonarr, Prowlarr and Transmission
 
 ## Requirements:
 
@@ -39,8 +39,8 @@ Make sure after the above usermod you logged in and out once (type `exit` on the
 
 Get a copy of the docker-compose.yml, could be copy pasting or cloning the repository with git:
 ```
-git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-jackett-transmission.git
-cd docker-compose-radarr-sonarr-jackett-transmission
+git clone https://github.com/wilmardo/docker-compose-radarr-sonarr-prowlarr-transmission.git
+cd docker-compose-radarr-sonarr-prowlarr-transmission
 ```
 
 In the `docker-compose.yml` you must setup the `OPENVPN_` variables under the `environment:` key.
