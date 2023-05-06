@@ -20,6 +20,8 @@ services:
     volumes:
       - /media/downloads:/data
       - /etc/localtime:/etc/localtime:ro
+    cap_add:
+      - NET_ADMIN
 
   # https://github.com/linuxserver/docker-radarr
   radarr:
