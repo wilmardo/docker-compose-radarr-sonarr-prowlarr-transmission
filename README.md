@@ -1,5 +1,5 @@
 # docker-compose-radarr-sonarr-prowlarr-transmission
-Quick setup for Radarr, Sonarr, Prowlarr and Transmission
+Quick setup for Radarr, Sonarr, Prowlarr and Transmission made for a friend at some point and open sourced.
 
 ## Requirements:
 
